@@ -6,7 +6,7 @@ import com.devbaltasarq.burguerbuildercomplexlistview.core.BurguerConfigurator;
   * Adapts each entry in the ListView to the burguer configurator object: selected, name and cost.
   */
 public class ListViewEntry {
-    /** Creates an entry with a given ingredient, cost, and selection status */
+    /** Connects this entry with an ingredient position in the burguer configurator list. */
     public ListViewEntry(BurguerConfigurator bc, int pos)
     {
         this.bc = bc;
