@@ -1,53 +1,56 @@
 package com.devbaltasarq.burguerbuildercomplexlistview.view;
 
+import com.devbaltasarq.burguerbuildercomplexlistview.core.BurguerConfigurator;
+
 /** Represents each row in the ListView.
-  * The ListView will have entries displaying selection, ingredient and price
+  * The ListView will have entries displaying selection, ingredient and cost. This adapts them.
   */
 public class ListViewEntry {
-    /** Creates an unselected entry with a given ingredient and price */
-    public ListViewEntry(String ingredient, double price)
+    /** Creates an entry with a given ingredient, cost, and selection status */
+    public ListViewEntry(BurguerConfigurator bc, int pos)
     {
-        this( ingredient, price, false );
+        this.bc = bc;
+        this.pos = pos;
     }
 
-    /** Creates an entry with a given ingredient, price, and selection status */
-    public ListViewEntry(String ingredient, double price, boolean selected)
+    /** @return The position of this ingredient in the burguer configurator list */
+    public final int getPos()
     {
-        this.setIngredient( ingredient );
-        this.setPrice( price );
-        this.setSelected( selected );
+        return this.pos;
     }
 
-    public final boolean isSelected() {
-        return selected;
+    /** @return Whether this ingredient has been selected or not */
+    public boolean isSelected() {
+        return this.bc.getSelected()[ this.pos ];
     }
 
-    public final void setSelected(boolean selected) {
-        this.selected = selected;
+    /** Changes the selection of the ingredient to the given value */
+    public void setSelected(boolean selected) {
+        this.bc.getSelected()[ this.pos ] = selected;
     }
 
-    public double getPrice() {
-        return price;
+    /** Inverts the current selection state */
+    public void invertSelection()
+    {
+        this.setSelected( !this.isSelected() );
     }
 
-    public final void setPrice(double price) {
-        this.price = price;
+    /** @returns the individual cost of this ingredient. */
+    public double getCost() {
+        return BurguerConfigurator.COSTS[ this.pos ];
     }
 
+
+    /** @returns the name of this ingredient */
     public String getIngredient() {
-        return ingredient;
-    }
-
-    public final void setIngredient(String ingredient) {
-        this.ingredient = ingredient;
+        return BurguerConfigurator.INGREDIENTS[ this.pos ];
     }
 
     @Override
     public String toString() {
-        return String.format( "%4.2f '%s': %b", this.getPrice(), this.getIngredient(), this.isSelected() );
+        return String.format( "%4.2f '%s': %b", this.getCost(), this.getIngredient(), this.isSelected() );
     }
 
-    private boolean selected;
-    private double price;
-    private String ingredient;
+    private BurguerConfigurator bc;
+    private int pos;
 }

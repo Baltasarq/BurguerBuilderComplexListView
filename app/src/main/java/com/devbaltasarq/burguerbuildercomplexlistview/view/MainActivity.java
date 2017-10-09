@@ -1,15 +1,11 @@
 package com.devbaltasarq.burguerbuildercomplexlistview.view;
 
-import android.content.DialogInterface;
-import android.support.constraint.solver.ArrayLinkedVariables;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         this.cfgBurguer = new BurguerConfigurator();
 
         // Report relevant info
-        Log.i( "MainActivity.OnCreate", "Number of ingredients: "
+        Log.i( "MainActivity.OnCreate", "Number of ingredientAdapterList: "
                 + BurguerConfigurator.INGREDIENTS.length );
 
         for(int i = 0; i < BurguerConfigurator.INGREDIENTS.length; ++i) {
@@ -37,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     + BurguerConfigurator.INGREDIENTS[ i ] );
         }
 
+        // Show components and initial totals
         this.showFixedIngredients();
         this.showIngredients();
         this.updateTotals();
@@ -56,30 +53,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void showIngredients()
     {
-        final boolean[] selections = this.cfgBurguer.getSelected();
         final ListView lvIngredients = (ListView) this.findViewById( R.id.lvIngredients );
 
         // Create list
-        ArrayList<ListViewEntry> ingredients = new ArrayList<>();
+        ArrayList<ListViewEntry> ingredientEntryAdapterList = new ArrayList<>();
         for(int i = 0; i < this.cfgBurguer.getSelected().length; ++i) {
-                ListViewEntry entry = new ListViewEntry(
-                        BurguerConfigurator.INGREDIENTS[ i ],
-                        BurguerConfigurator.COSTS[ i ],
-                        selections[ i ]
-                );
-
-                ingredients.add( entry );
+            ingredientEntryAdapterList.add( new ListViewEntry( this.cfgBurguer, i ) );
         }
 
-        lvIngredients.setAdapter(
-                new ListViewEntryArrayAdapter(
-                        this,
-                        ingredients.toArray( new ListViewEntry[ ingredients.size() ] ) ) );
+        this.ingredientAdapterList = new ListViewEntryArrayAdapter(
+                this,
+                ingredientEntryAdapterList.toArray( new ListViewEntry[ ingredientEntryAdapterList.size() ] )
+        );
+        lvIngredients.setAdapter( this.ingredientAdapterList );
+
         lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                selections[ i ] = !selections[ i ];
-                MainActivity.this.showIngredients();
+                MainActivity.this.ingredientAdapterList.getItem( i ).invertSelection();
+                MainActivity.this.ingredientAdapterList.notifyDataSetChanged();
                 MainActivity.this.updateTotals();
             }
         });
@@ -104,57 +96,9 @@ public class MainActivity extends AppCompatActivity {
         // Update
         lblTotal.setText(
                 String.format( "%4.2f", MainActivity.this.cfgBurguer.calculateCost() ) );
-        this.showIngredients();
         Log.i( "MainActivity.updTotals", "End updating." );
     }
 
-    private void showIngredientsDialog()
-    {
-        final boolean[] selections = this.cfgBurguer.getSelected();
-        AlertDialog.Builder dlg = new AlertDialog.Builder( this );
-
-        dlg.setTitle( this.getResources().getString( R.string.lblIngredientSelection) );
-
-        dlg.setMultiChoiceItems(
-                BurguerConfigurator.INGREDIENTS,
-                selections,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        selections[ i ] = b;
-                    }
-                }
-        );
-
-        dlg.setPositiveButton( "Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                MainActivity.this.updateTotals();
-            }
-        });
-        dlg.create().show();
-    }
-
-    private void showPricesDialog()
-    {
-        final String[] ingredientsWithPrices = new String[ BurguerConfigurator.getNumIngredients() ];
-        final TextView lblData = new TextView( this );
-        AlertDialog.Builder dlg = new AlertDialog.Builder( this );
-        dlg.setTitle( this.getResources().getString( R.string.lblPrices) );
-
-        // Build list with prices
-        for(int i = 0; i < ingredientsWithPrices.length; ++i) {
-            ingredientsWithPrices[ i ] = String.format( "%4.2f€ %s",
-                    BurguerConfigurator.COSTS[ i ],
-                    BurguerConfigurator.INGREDIENTS[ i ] );
-        }
-
-        lblData.setText( String.join( "\n", ingredientsWithPrices ) );
-        lblData.setPadding( 10, 10, 10, 10 );
-        dlg.setView( lblData );
-        dlg.setPositiveButton( "Ok", null );
-        dlg.create().show();
-    }
-
     private BurguerConfigurator cfgBurguer;
+    private ListViewEntryArrayAdapter ingredientAdapterList;
 }

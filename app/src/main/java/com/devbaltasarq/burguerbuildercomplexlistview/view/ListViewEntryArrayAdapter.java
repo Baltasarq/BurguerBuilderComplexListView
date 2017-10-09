@@ -1,7 +1,6 @@
 package com.devbaltasarq.burguerbuildercomplexlistview.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +32,11 @@ public class ListViewEntryArrayAdapter extends ArrayAdapter<ListViewEntry> {
 
         final CheckBox chkSelected = convertView.findViewById( R.id.chkEntryIngredientSelected );
         final TextView lblIngredient = convertView.findViewById( R.id.lblEntryIngredientName );
-        final TextView lblPrice = convertView.findViewById( R.id.lblEntryIngredientPrice );
+        final TextView lblCost = convertView.findViewById( R.id.lblEntryIngredientCost);
 
         chkSelected.setChecked( entry.isSelected() );
         lblIngredient.setText( entry.getIngredient() );
-        lblPrice.setText( String.format( "%4.2f€", entry.getPrice() ) );
+        lblCost.setText( String.format( "%4.2f€", entry.getCost() ) );
 
         return convertView;
     }
