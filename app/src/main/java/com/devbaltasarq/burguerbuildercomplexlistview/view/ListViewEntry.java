@@ -2,8 +2,8 @@ package com.devbaltasarq.burguerbuildercomplexlistview.view;
 
 import com.devbaltasarq.burguerbuildercomplexlistview.core.BurguerConfigurator;
 
-/** Represents each row in the ListView.
-  * The ListView will have entries displaying selection, ingredient and cost. This adapts them.
+/** Represents each entry in the ListView.
+  * Adapts each entry in the ListView to the burguer configurator object: selected, name and cost.
   */
 public class ListViewEntry {
     /** Creates an entry with a given ingredient, cost, and selection status */
