@@ -53,18 +53,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void showIngredients()
     {
+        final int NUM_INGREDIENTS = this.cfgBurguer.getSelected().length;
         final ListView lvIngredients = (ListView) this.findViewById( R.id.lvIngredients );
 
         // Create list
-        ArrayList<ListViewEntry> ingredientEntryAdapterList = new ArrayList<>();
-        for(int i = 0; i < this.cfgBurguer.getSelected().length; ++i) {
-            ingredientEntryAdapterList.add( new ListViewEntry( this.cfgBurguer, i ) );
+        ListViewEntry[] ingredientEntryAdapterList = new ListViewEntry[ NUM_INGREDIENTS ];
+
+        for(int i = 0; i < NUM_INGREDIENTS; ++i) {
+            ingredientEntryAdapterList[ i ] = new ListViewEntry( this.cfgBurguer, i );
         }
 
         this.ingredientAdapterList = new ListViewEntryArrayAdapter(
                 this,
-                ingredientEntryAdapterList.toArray( new ListViewEntry[ ingredientEntryAdapterList.size() ] )
+                ingredientEntryAdapterList
         );
+
         lvIngredients.setAdapter( this.ingredientAdapterList );
 
         lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {

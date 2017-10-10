@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.devbaltasarq.burguerbuildercomplexlistview.R;
 
-/**
-  * Explains to Android how to visualize each entry in the ListView.
-  */
+/** Explains to the ListView how to show each entry. */
 public class ListViewEntryArrayAdapter extends ArrayAdapter<ListViewEntry> {
     public ListViewEntryArrayAdapter(Context context, ListViewEntry[] entries)
     {

@@ -14,7 +14,7 @@ public class ListViewEntry {
     }
 
     /** @return The position of this ingredient in the burguer configurator list */
-    public final int getPos()
+    public int getPos()
     {
         return this.pos;
     }
