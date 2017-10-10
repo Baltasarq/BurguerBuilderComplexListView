@@ -8,76 +8,63 @@
     android:padding="10dp"
     tools:context="com.devbaltasarq.burguerbuildercomplexlistview.view.MainActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
-        android:gravity="center_vertical">
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="0.1"
+        android:gravity="center_vertical"
+        android:text="@string/lblBurguer"
+        android:textSize="32sp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="0.75"
-            android:gravity="center_vertical"
-            android:text="@string/lblBurguer"
-            android:textSize="32sp" />
-    </LinearLayout>
     <ListView
         android:id="@+id/lvFixedIngredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.10"/>
+        android:layout_weight="0.25" />
+
+    <ListView
+        android:id="@+id/lvIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:textColor="@android:color/black"
+        android:textSize="22sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.75"
-        android:orientation="vertical">
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <ListView
-            android:id="@+id/lvIngredients"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:textColor="@android:color/black"
-            android:textSize="22sp" />
+            android:layout_weight="0.2"
+            android:text="@string/lblTotal"
+            android:textSize="24sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/lblTotal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.10"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_weight="0.7"
+            android:gravity="end"
+            android:text="0"
+            android:textAlignment="textEnd"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="@string/lblTotal"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/lblTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:text="0"
-                android:textAlignment="textEnd"
-                android:gravity="end"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:text="@string/lblCurrency"
-                android:textSize="24sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/lblCurrency"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </LinearLayout>

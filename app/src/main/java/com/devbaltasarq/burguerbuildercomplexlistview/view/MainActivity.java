@@ -40,14 +40,16 @@ public class MainActivity extends AppCompatActivity {
     {
         ListView lvFixedIngredients = (ListView) this.findViewById( R.id.lvFixedIngredients );
 
-        ListViewFixedIngredientEntry[] fixedIngredientsList = new ListViewFixedIngredientEntry[ 2 ];
-        fixedIngredientsList[ 0 ] = new ListViewFixedIngredientEntry( "Pan", 1.0 );
-        fixedIngredientsList[ 1 ] = new ListViewFixedIngredientEntry( "Carne", 2.0 );
+        ListViewIngredientEntry[] fixedIngredientsList = new ListViewFixedIngredientEntry[] {
+                new ListViewFixedIngredientEntry(
+                BurguerConfigurator.FIXED_INGREDIENTS[ 0 ], BurguerConfigurator.FIXED_COSTS[ 0 ] ),
+                new ListViewFixedIngredientEntry(
+                BurguerConfigurator.FIXED_INGREDIENTS[ 1 ], BurguerConfigurator.FIXED_COSTS[ 1 ] )
+        };
 
         // Create list
-        ListViewEntryArrayAdapter fixedIngredientEntryAdapterList =
-                new ListViewEntryArrayAdapter( this, fixedIngredientsList );
-
+        ListViewIngredientEntryArrayAdapter fixedIngredientEntryAdapterList =
+                new ListViewIngredientEntryArrayAdapter( this, fixedIngredientsList );
 
         lvFixedIngredients.setAdapter( fixedIngredientEntryAdapterList );
     }
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             ingredientEntryAdapterList[ i ] = new ListViewRegularIngredientEntry( this.cfgBurguer, i );
         }
 
-        this.ingredientAdapterList = new ListViewEntryArrayAdapter(
+        this.ingredientAdapterList = new ListViewIngredientEntryArrayAdapter(
                 this,
                 ingredientEntryAdapterList
         );
@@ -104,5 +106,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private BurguerConfigurator cfgBurguer;
-    private ListViewEntryArrayAdapter ingredientAdapterList;
+    private ListViewIngredientEntryArrayAdapter ingredientAdapterList;
 }

@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.devbaltasarq.burguerbuildercomplexlistview.R;
 
 /** Explains to the ListView how to show each entry. */
-public class ListViewEntryArrayAdapter extends ArrayAdapter<ListViewIngredientEntry> {
-    public ListViewEntryArrayAdapter(Context context, ListViewIngredientEntry[] entries)
+public class ListViewIngredientEntryArrayAdapter extends ArrayAdapter<ListViewIngredientEntry> {
+    public ListViewIngredientEntryArrayAdapter(Context context, ListViewIngredientEntry[] entries)
     {
         super( context, 0, entries );
 
