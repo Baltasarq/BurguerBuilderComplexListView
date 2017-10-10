@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.devbaltasarq.burguerbuildercomplexlistview.R;
 import com.devbaltasarq.burguerbuildercomplexlistview.core.BurguerConfigurator;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,12 +40,16 @@ public class MainActivity extends AppCompatActivity {
     {
         ListView lvFixedIngredients = (ListView) this.findViewById( R.id.lvFixedIngredients );
 
-        lvFixedIngredients.setAdapter(
-                new ArrayAdapter<String>(
-                        this,
-                        android.R.layout.simple_list_item_1,
-                        new String[] { "─  1.00€ Pan", "─  2.00€ Carne de vacuno" } ) );
+        ListViewFixedIngredientEntry[] fixedIngredientsList = new ListViewFixedIngredientEntry[ 2 ];
+        fixedIngredientsList[ 0 ] = new ListViewFixedIngredientEntry( "Pan", 1.0 );
+        fixedIngredientsList[ 1 ] = new ListViewFixedIngredientEntry( "Carne", 2.0 );
 
+        // Create list
+        ListViewEntryArrayAdapter fixedIngredientEntryAdapterList =
+                new ListViewEntryArrayAdapter( this, fixedIngredientsList );
+
+
+        lvFixedIngredients.setAdapter( fixedIngredientEntryAdapterList );
     }
 
     private void showIngredients()
@@ -57,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
         final ListView lvIngredients = (ListView) this.findViewById( R.id.lvIngredients );
 
         // Create list
-        ListViewEntry[] ingredientEntryAdapterList = new ListViewEntry[ NUM_INGREDIENTS ];
+        ListViewIngredientEntry[] ingredientEntryAdapterList = new ListViewRegularIngredientEntry[ NUM_INGREDIENTS ];
 
         for(int i = 0; i < NUM_INGREDIENTS; ++i) {
-            ingredientEntryAdapterList[ i ] = new ListViewEntry( this.cfgBurguer, i );
+            ingredientEntryAdapterList[ i ] = new ListViewRegularIngredientEntry( this.cfgBurguer, i );
         }
 
         this.ingredientAdapterList = new ListViewEntryArrayAdapter(

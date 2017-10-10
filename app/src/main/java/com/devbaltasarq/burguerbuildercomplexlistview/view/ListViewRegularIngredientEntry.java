@@ -5,9 +5,9 @@ import com.devbaltasarq.burguerbuildercomplexlistview.core.BurguerConfigurator;
 /** Represents each entry in the ListView.
   * Adapts each entry in the ListView to the burguer configurator object: selected, name and cost.
   */
-public class ListViewEntry {
+public class ListViewRegularIngredientEntry extends ListViewIngredientEntry {
     /** Connects this entry with an ingredient position in the burguer configurator list. */
-    public ListViewEntry(BurguerConfigurator bc, int pos)
+    public ListViewRegularIngredientEntry(BurguerConfigurator bc, int pos)
     {
         this.bc = bc;
         this.pos = pos;
@@ -29,12 +29,6 @@ public class ListViewEntry {
         this.bc.getSelected()[ this.pos ] = selected;
     }
 
-    /** Inverts the current selection state */
-    public void invertSelection()
-    {
-        this.setSelected( !this.isSelected() );
-    }
-
     /** @returns the individual cost of this ingredient. */
     public double getCost() {
         return BurguerConfigurator.COSTS[ this.pos ];
@@ -44,11 +38,6 @@ public class ListViewEntry {
     /** @returns the name of this ingredient */
     public String getIngredient() {
         return BurguerConfigurator.INGREDIENTS[ this.pos ];
-    }
-
-    @Override
-    public String toString() {
-        return String.format( "%4.2f '%s': %b", this.getCost(), this.getIngredient(), this.isSelected() );
     }
 
     private BurguerConfigurator bc;
